@@ -1,0 +1,32 @@
+pc_id,cou_id,from_course_code,from_course,prerequisite_code,pc_prerequisite_course
+1,52,IM1022,Data Science,IM560,Programming(Basic)
+2,52,IM1022,Data Science,IM2048,Introduction to DataBase
+3,3,IM1022,Data Science,IM560,Programming(Basic)
+4,3,IM1022,Data Science,IM2048,Introduction to DataBase
+5,4,IM1022,Data Science,IM560,Programming(Basic)
+6,4,IM1022,Data Science,IM2048,Introduction to DataBase
+7,5,IM1022,Data Science,IM560,Programming(Basic)
+8,5,IM1022,Data Science,IM2048,Introduction to DataBase
+9,44,IM1022,Data Science,IM560,Programming(Basic)
+10,44,IM1022,Data Science,IM2048,Introduction to DataBase
+11,9,IM2056,Introduction to Blockchain,IM2060,Information Security
+12,42,IM2056,Introduction to Blockchain,IM2060,Information Security
+13,51,IM2056,Introduction to Blockchain,IM2060,Information Security
+14,58,IM2056,Introduction to Blockchain,IM2060,Information Security
+15,10,IM2056,Introduction to Blockchain,IM2060,Information Security
+16,11,IM1025,Machine Learning,IM560,Programming(Basic)
+17,45,IM1025,Machine Learning,IM560,Programming(Basic)
+18,46,IM1025,Machine Learning,IM560,Programming(Basic)
+19,59,IM1025,Machine Learning,IM560,Programming(Basic)
+20,60,IM1025,Machine Learning,IM560,Programming(Basic)
+21,12,IM1025,Machine Learning,IM560,Programming(Basic)
+22,69,IM561,Programming(Advanced),IM560,Programming(Basic)
+23,17,IM561,Programming(Advanced),IM560,Programming(Basic)
+24,70,IM561,Programming(Advanced),IM560,Programming(Basic)
+25,18,IM561,Programming(Advanced),IM560,Programming(Basic)
+26,71,IM561,Programming(Advanced),IM560,Programming(Basic)
+27,19,IM561,Programming(Advanced),IM560,Programming(Basic)
+28,81,IM4083,Practical Course of Cloud Computing,IM2062,Introduction to Internet
+29,31,IM4083,Practical Course of Cloud Computing,IM2062,Introduction to Internet
+30,76,IM4083,Practical Course of Cloud Computing,IM2062,Introduction to Internet
+31,32,IM2063,Practical Course of Cloud Computing,IM2062,Introduction to Internet

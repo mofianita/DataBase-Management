@@ -1,0 +1,57 @@
+user:
+(1)student
+	需登入(有預設帳號 登入後要更改)//sp1、sp2
+	畢業、退學後帳號會銷毀
+	hash(+salt)儲存密碼
+(2)teacher
+	需登入(有預設帳號 登入後要更改)//sp1、sp2
+	退休後帳號會銷毀
+	hash(+salt)儲存密碼
+(3)visitor
+	只可以搜尋課程(ppt p.16)
+	
+選課系統:
+>選課狀況只有
+	preliminary(待分發)
+	enrolled(中選)[密碼卡/分發]
+	unselected(未中選)
+	withdrawn(退選)
+>每個年級的選修跟必修還有必修的先修課都無法修改
+>只有必修有需先修課(選修沒有)
+>在不同學期中，course_code跟course_name不會改變
+>給不同degree_program的課 course_code、course_name可能一樣 但course_id一定不一樣(假資料錯誤)
+>每個系必修的先修都是自己系開的課
+>學生只能修自己系上的必修、選修跟通識課
+>畢業門檻:必修+5門選修+3門通識
+>在不同學程中同一堂課的修課年級可能不同
+>同一個課程中就算不同學期不同學程 先修課都一樣
+>一堂課可以同時屬於多個系所(同個course_name的情況下 會出現(1)course_id跟course_code不同[由不同系所開 只是名字一樣而已] (2)course_id跟course_code相同[屬於多個系所]
+>要有一個table在記錄學生修某堂課有沒有修過 還是被當
+>course card被使用後過要記錄
+
+>三個時段:
+
+>沒有時間限制的sp
+	學生可以看他們當學期preliminary跟enrolled的課程//sp3
+	查看某堂課目前以及未來選課中選名單//sp4
+	退選課程(不需管時間、管status)//sp5
+	查詢某一老師在某一學期開設的所有課程//sp6
+	全部的user都可以查詢某一學程的所有必修+選修//sp7
+	全部的user都可以取得某課程的先修課//sp8
+	學生可以查看當學期可選擇課程(必修+選修+通識)//sp9
+	取得某課程中使用密碼卡的學生名單(不管是中選還是退選或是被當)//sp10
+	根據degree program跟degree取得的必修課//sp12
+
+(1)before course selection
+	老師提供下學期的課程(必修+選修+通識)//sp11
+(2)during course selection
+	必修(根據degree_program跟年級)自動選擇(status是enrolled)
+	選修、通識開始選課->使用密碼卡=enrolled
+			  不使用密碼卡=preliminary
+(3)after course selection
+	enrolled+=preliminary抽籤抽出中選的人
+	(先用prelimainary機制去選到課堂的人數限制 再加上密碼卡的人/密碼卡發放最多5張)
+	退選後的位子會空著 不會再加入其他學生
+
+	學生可以check course
+	老師可以查看他的課的中選名單

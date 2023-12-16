@@ -1,0 +1,475 @@
+derived table(把table結合生出新的table)
+1.
+exist
+hashed_pwd裡面存的是phone加鹽的hash值
+exist在不在
+回傳status code
+
+2.
+輸入的hashed_pwd跟salt去塞進原本的值裡面
+把原本的salt跟hashed_pwd用update(還有set) 把值換掉
+
+3.
+到studentcourse裡面 透過student_id跟semester找出course_id連到course 去找course_code跟course_name
+
+用course_code left join course using course_id
+
+4.
+輸入course_id到course中 把cou_semester、cou_code、cou_name挑出來-A
+輸入course_id到studentcourse中 把stu_id挑出來 丟到student裡去找出stu_id跟stu_name-B
+把這兩個用inner join合起來using(cou_id)
+
+先從studentcourse把course_id抓出stu_id來
+
+5.
+
+6.
+
+7.
+SUBSTRING_INDEX
+
+輸入degree_program_id到degree_program 找到prerequisite_course 然後把逗號分開 用course_code去course找course_name 把degree_program_name跟course_code跟course_name join成一個table  然後把required_or_elective的column加上去 輸入為required or elective並把這個result set設成一個table
+
+輸入degree_program_id到degree_program 找到elective_course 然後把逗號分開 用course_code去course找course_name 把所有東西insert到table 然後required or elective設為elective
+
+從degreeprogram中把dp_id=degreePprogram_id的值全部丟出來
+inner join using(dp_id)
+從requiredcourse把course_code丟出來
+right join on(cou_code = course_code)
+[包含dp_id, dp_name, re_id, re_required_course, re_prerequisite_year_if_required
+
+8.
+SUBSTRING_INDEX
+//hieretical階層結構self join(602錄影一)
+
+用course_code去course找出course_code跟course_name
+再用course_code對應的course_id去prerequisitecourse找出pc_prerequisite_course
+再把prerequisite_course傳回course找出prerequisite_code_name
+
+輸入cou_code到course
+找到對應的cou_id
+輸入cou_id到prerequisitecourse
+找到對應的pc_prerequisite_course
+輸入pc_prerequisite_course到course
+找到對應的cou_name
+
+9.
+case expression
+SUBSTRING_INDEX
+
+(1.
+用student_id從studentdegreeprogram得到sdp_depgreeprogram
+(2.
+用student_id得到年級
+(3.
+去requiredcourse找到dp_id跟re_prerequisite_of_required_course符合的re_required_course
+去electivecourse找跟dp_id相符的el_elective_course
+去course中找符合code且學期是semester的課
+丟出他的course_name跟course_code
+
+d.dp_id = front.sdp_degree_program
+r.re_prerequisite_year_of_required_course = front.stu_grade 
+
+10.
+用course_id到coursecard中找出used y/n為y的丟出流水號
+去left join studentcourse
+去left join
+用course_id到course中丟出semester跟course_code跟course_name
+用course_id到
+
+
+11.
+transaction(全有全無率)
+insert into(和values)
+
+12.
+SUBSTRING_INDEX
+
+
+1.
+
+CREATE DEFINER=`110403004`@`192.168.56.1` PROCEDURE `sp_Login`(
+	IN student_id INT,
+    IN hashedpwd varchar(200),
+    OUT status_code INT
+)
+BEGIN
+	SELECT 
+        CASE
+			when exists(select 1 from StudentCredential where stu_id = student_id and stu_hashed_pwd_string = hashedpwd)
+			THEN '1'
+			when exists(select 1 from StudentCredential where stu_id = student_id and stu_hashed_pwd_string != hashedpwd)
+			THEN '2'
+			when exists(select 1 from StudentCredential where stu_id != student_id and stU_hashed_pwd_string != hashedpwd)
+			THEN '3'
+		END
+        INTO status_code;
+END
+
+
+
+2.
+
+
+CREATE DEFINER=`110403004`@`192.168.56.1` PROCEDURE `sp_UpdatePwd`(
+	IN student_id INT,
+    IN hashedPwd Varchar(200),
+    IN salt char(64),
+    OUT affected_row_num INT
+)
+BEGIN
+	set SQL_SAFE_UPDATES = 0;
+    
+	
+    update StudentCredential
+	set stu_salt = salt, stu_hashed_pwd_string = hashedPwd
+	where 
+		stu_id = student_id;
+    
+    select row_count() into affected_row_num;
+    
+    set SQL_SAFE_UPDATES = 1;
+END
+
+
+
+3.
+
+CREATE DEFINER=`110403004`@`192.168.56.1` PROCEDURE `sp_GetCourseStudent`(
+	IN course_id int,
+    out number_of_rows int
+)
+BEGIN
+	select
+		cou_semester semester,
+        dp_id degree_program,
+        cou_code course_code,
+        cou_name course_name,
+        stu_id student_id,
+        stu_name student_name
+	from
+		Course
+        inner join
+			StudentCourse using(cou_id)
+            inner join
+				Student using(stu_id)
+                inner join
+					CourseToDegreeProgram using(cou_id)
+	where
+		cou_id = course_id and sc_selection_status = 'enrolled';
+        
+	select found_rows() into number_of_rows;
+END
+
+
+4.
+
+
+CREATE DEFINER=`110403004`@`192.168.56.1` PROCEDURE `sp_GetCourseWithSemesterAndTeacher`(
+	IN semester INT,
+    IN teacher_id INT,
+    out number_of_rows int
+)
+BEGIN
+	select
+		cou_semester semester,
+        tea_id teacher_id,
+        cou_code course_code,
+        cou_name course_name,
+        dp_id degree_program
+	from
+		Course
+        inner join
+			CourseToTeacher using(cou_id)
+            inner join
+				CourseToDegreeProgram using(cou_id)
+	 where
+		 tea_id = teacher_id and cou_semester = semester;
+         
+	select found_rows() into number_of_rows;
+END
+
+
+
+5.
+
+
+CREATE DEFINER=`110403004`@`192.168.56.1` PROCEDURE `sp_GetPrerequisiteCourse`(
+	in course_code varchar(45)
+)
+BEGIN
+
+	/*select 
+		cou_code,
+        
+        -- cou_name,
+        -- pc_prerequisite_course
+         prerequisite_course_name
+    from*/
+    
+    select
+		cou_id,
+		cou_code,
+		cou_name,
+        pc_prerequisite_course
+	from
+		Course c
+        inner join PrerequisiteCourse using(cou_id);
+        alter table Course
+        add column Prerequisite_Course_name varchar(100);
+        update Course c1
+        join Course c2 on 
+        c2.cou_code = PrerequisiteCourse.pc_prerequisite_course
+        set Prerequisite_Course_name = 0;
+        
+	
+    
+    /*inner join
+    (select
+		cou_id,
+        cou_code,
+		cou_name prerequisite_course_name
+	from
+		Course c,
+        PrerequisiteCourse p
+	where c.cou_code = p.pc_prerequisite_course
+        ) back
+    /*on front.cou_id = back.cou_id
+    
+    where cou_code = course_code;*/
+    
+END
+
+
+6.
+
+
+CREATE DEFINER=`110403004`@`192.168.56.1` PROCEDURE `sp_GetSelectionCourse`(
+	IN student_id int,
+    IN semester int,
+    OUT number_of_rows INT
+)
+BEGIN
+	select stu_id student_id, 
+		   sc_semester semester, 
+           cou_code course_code,
+           cou_name course_name,
+           sc_selection_status status
+	from
+		StudentCourse
+        inner join Course using(cou_id)
+	where
+		stu_id = student_id and sc_semester = semester;
+        
+	select found_rows() into number_of_rows;
+END
+
+
+7.
+
+CREATE DEFINER=`110403004`@`192.168.56.1` PROCEDURE `sp_UpdateWithdrawCourse`(
+	IN student_id INT,
+    IN course_id INT,
+	OUT affected_row_num int
+)
+BEGIN
+	set SQL_SAFE_UPDATES = 0;
+    
+    update StudentCourse
+    set sc_selection_status = 'withdrawn'
+    where stu_id = student_id and cou_id = course_id;
+    
+    select row_count() into affected_row_num;
+    
+    set SQL_SAFE_UPDATES = 1;
+END
+
+
+8.
+
+CREATE DEFINER=`110403004`@`192.168.56.1` PROCEDURE `sp_GetPrerequisiteCourse`(
+	in course_code varchar(45)
+)
+BEGIN
+	
+    select  distinct
+		from_course_code course_code,
+        from_course course_name,
+		pc_prerequisite_course_code Prerequisite_Course_code,
+        pc_prerequisite_course Prerequisite_Course_name
+	from
+		PrerequisiteCourse
+	where
+		from_course_code = course_code;
+END
+
+9.
+
+CREATE PROCEDURE `sp_GetSelectableCourses` (
+	in student_id int,
+    in semester int
+)
+BEGIN
+	declare dp_name_output varchar(100);
+    declare dp_id_outout int;
+    set dp_name_output='';
+    set dp_id_output=0;
+    
+    select dp_id as dp_id_output from StudentDegreeProgram where stu_id = student_id ;
+    select dp_name as dp_name_output from DegreeProgram where dp_id = dp_id_output;
+    
+    select * from
+    (select re_required_course reel_code from RequiredCourse where dp_id = dp_id_output
+    union
+    select el_elective_course reel_code from ElectiveCourse where dp_id = dp_id_output) code
+    
+    inner join
+    (select
+		cou_id,
+        cou_name,
+        cou_semester,
+        cou_code
+	from
+		Course
+	where 
+		(select
+			cou_id,
+            sc_semester
+		from
+			StudentCourse
+		where
+			sc_pass = 'T')
+        ) courseinfo
+    on code.reel_code = cou_code;
+    
+END
+
+
+10.
+
+CREATE DEFINER=`110403004`@`192.168.56.1` PROCEDURE `sp_GetStudentCourseWithCourseCard`(
+	in course_id int
+)
+BEGIN
+	select 
+		sc_semester semester,
+        dp_id degree_program_id,
+        cou_code course_code,
+        cou_name course_name,
+        stu_id student_id,
+		stu_name student_name,
+        cc_serial_number serial_number
+    from
+    (select
+		cc_serial_number,
+        cc_cou_id,
+        stu_id,
+        sc_semester
+	from
+		CourseCard
+        inner join StudentCourse
+        on cc_serial_number = cardnumber
+	where cc_cou_id = course_id and `used_y/n` = 'y') cardinfo
+	inner join 
+    
+    (select stu_id, stu_name from Student)studentinfo
+    using(stu_id)
+
+    inner join
+    (select
+		cou_code,
+        cou_name,
+        cou_id
+	from
+		Course 
+        where cou_id = course_id) courseinfo
+    on cardinfo.cc_cou_id = courseinfo.cou_id
+    
+    inner join
+    (select
+		dp_id
+	from CourseToDegreeProgram
+    where cou_id = course_id) degreeprograminfo
+    ;
+    
+    
+    
+END
+
+
+
+
+
+
+
+
+考慮grade跟沒考慮prerequisite_course
+CREATE DEFINER=`110403004`@`192.168.56.1` PROCEDURE `sp_GetSelectableCourses`(
+	IN student_id int,
+    in semester int
+)
+BEGIN
+	select -- distinct
+		front.stu_id,
+        cou_semester,
+        dp_name,
+        back.cou_code,
+		cou_name
+    from
+		(select
+			stu_id,
+			stu_grade
+		from
+			Student ) front
+    
+		inner join 
+		(select
+			stu_id,
+			sdp_degree_program
+		from 
+			StudentDegreeProgram ) median0
+		on front.stu_id = median0.stu_id
+		
+		inner join
+		(select
+			dp_id,
+			dp_name
+		from
+			DegreeProgram ) median
+		on median0.sdp_degree_program = median.dp_id
+		
+		inner join
+        (select 
+			dp_id,
+			re_required_course cou_code,
+			re_prerequisite_year_of_required_course
+		from
+			RequiredCourse
+            
+        union
+        
+        select 
+			dp_id,
+			el_elective_course cou_code,
+            '0' as re_prerequisite_year_of_required_course
+		from
+			ElectiveCourse
+			) back
+            
+		using (dp_id)
+        
+		inner join
+		(select
+			cou_semester,
+			cou_name,
+			cou_code
+		from
+			Course ) final
+		on back.cou_code = final.cou_code 
+		-- or back.el_elective_course = final.cou_code
+    
+	where cou_semester = semester and 
+	re_prerequisite_year_of_required_course = stu_grade and 
+	front.stu_id =  student_id ;
+    
+END

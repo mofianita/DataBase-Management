@@ -1,0 +1,13 @@
+stu_course_id,stu_id,cou_id,sc_selection_status,sc_pass,cardnumber,sc_semester
+1,109123123,2,enrolled,T,,1111
+2,109123123,6,enrolled,T,,1111
+3,109123123,24,enrolled,T,,1111
+4,109123123,20,enrolled,F,50001,1121
+5,109123123,13,enrolled,F,50006,1121
+6,109123123,51,preliminary,F,50015,1121
+7,110143123,51,enrolled,T,,1121
+8,110143123,20,enrolled,T,50002,1121
+9,110143123,7,unselected,N,,1101
+10,108123122,58,preliminary,F,,1101
+11,107123143,41,enrolled,T,,1121
+12,107123143,20,enrolled,T,50003,1121

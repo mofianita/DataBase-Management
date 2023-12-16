@@ -1,0 +1,84 @@
+cou_id,cou_code,cou_name,cou_semester,cou_room,cou_date,cou_time
+1,IM1023,Finance Management,1121,I1-104,Wed,234
+39,IM1023,Finance Management,1121,I1-104,Sun,234
+40,IM1023,Finance Management,1121,I1-104,Mon,234
+41,IM1023,Finance Management,1121,I1-104,Tue,234
+2,IM1023,Finance Management,1111,I1-104,Wed,234
+47,IM1023,Finance Management,1111,I1-104,Sun,234
+48,IM1023,Finance Management,1111,I1-104,Mon,234
+49,IM1023,Finance Management,1111,I1-104,Tue,234
+52,IM1022,Data Science,1121,l1-404,Sun,234
+3,IM1022,Data Science,1121,I1-404,Fri,234
+4,IM1022,Data Science,1112,I1-404,Fri,234
+5,IM1022,Data Science,1112,I1-404,Fri,567
+44,IM1022,Data Science,1102,I1-404,Sun,234
+50,IM560,Programming(Basic),1121,I1-407,Sun,678
+6,IM560,Programming(Basic),1111,I1-407,Sun,678
+43,IM560,Programming(Basic),1121,I1-407,Fri,678
+7,IM560,Programming(Basic),1101,I1-407,Fri,678
+53,IM560,Programming(Basic),1101,l1-407,Mon,678
+54,IM560,Programming(Basic),1101,l1-407,Sun,678
+55,IM560,Programming(Basic),1091,l1-407,Mon,678
+56,IM560,Programming(Basic),1091,I1-407,Fri,678
+57,IM560,Programming(Basic),1091,I1-407,Sun,678
+9,IM2056,Introduction to Blockchain,1112,I1-404,Mon,234
+42,IM2056,Introduction to Blockchain,1112,I1-404,Tue,234
+51,IM2056,Introduction to Blockchain,1121,I1-404,Wed,234
+58,IM2056,Introduction to Blockchain,1101,l1-404,Tue,234
+10,IM2056,Introduction to Blockchain,1101,I1-404,Mon,234
+11,IM1025,Machine Learning,1121,I1-104,Mon,567
+45,IM1025,Machine Learning,1121,I1-104,Tue,567
+46,IM1025,Machine Learning,1121,I1-104,Wed,567
+59,IM1025,Machine Learning,1092,l1-104,Tue,567
+60,IM1025,Machine Learning,1092,l1-104,Wed,567
+12,IM1025,Machine Learning,1092,I1-104,Mon,567
+13,IM2048,Introduction to DataBase,1121,I1-103,Wed,567
+61,IM2048,Introduction to DataBase,1121,l1-103,Tue,567
+53,IM2048,Introduction to DataBase,1121,I1-103,Mon,567
+62,IM2048,Introduction to DataBase,1111,l1-103,Tue,567
+63,IM2048,Introduction to DataBase,1111,l1-103,Wed,567
+64,IM2048,Introduction to DataBase,1111,l1-103,Thu,567
+14,IM2048,Introduction to DataBase,1111,I1-103,Mon,567
+65,IM2048,Introduction to DataBase,1101,l1-103,Tue,567
+66,IM2048,Introduction to DataBase,1101,l1-103,Wed,567
+15,IM2048,Introduction to DataBase,1101,I1-103,Mon,567
+67,IM2048,Introduction to DataBase,1091,l1-103,Tue,567
+68,IM2048,Introduction to DataBase,1091,l1-103,Wed,567
+16,IM2048,Introduction to DataBase,1091,I1-103,Mon,567
+69,IM561,Programming(Advanced),1112,l1-407,Wed,234
+17,IM561,Programming(Advanced),1112,I1-407,Tue,234
+70,IM561,Programming(Advanced),1102,l1-407,Wed,234
+18,IM561,Programming(Advanced),1102,I1-407,Tue,234
+71,IM561,Programming(Advanced),1092,I1-407,Wed,234
+81,IM561,Programming(Advanced),1092,I1-407,Fri,234
+19,IM561,Programming(Advanced),1092,I1-407,Tue,234
+20,IM4085,Basic Chinese,1121,I1-404,Wed,789
+21,IM4085,Basic Chinese,1112,I1-404,Wed,789
+22,IM4085,Basic Chinese,1102,I1-404,Wed,789
+72,IM2060,Information Security,1121,l1-404,Mon,678
+23,IM2060,Information Security,1121,I1-404,Tue,678
+24,IM2060,Information Security,1111,I1-404,Tue,678
+52,IM2060,Information Security,1111,I1-404,Mon,678
+73,IM2060,Information Security,1101,l1-404,Mon,678
+25,IM2060,Information Security,1101,I1-404,Tue,678
+74,IM2062,Introduction to Internet,1121,l1-409,Mon,678
+26,IM2062,Introduction to Internet,1121,l1-409,Thu,678
+75,IM2062,Introduction to Internet,1111,l1-409,Mon,678
+27,IM2062,Introduction to Internet,1111,l1-409,Thu,678
+28,IM4083,Basic English,1121,I1-404,Mon,234
+29,IM4083,Basic English,1111,I1-404,Mon,234
+30,IM4083,Basic English,1101,I1-404,Mon,234
+81,IM2063,Practical Course of Cloud Computing,1121,l1-407,Mon,234
+31,IM2063,Practical Course of Cloud Computing,1121,I1-407,Thu,678
+76,IM2063,Practical Course of Cloud Computing,1112,I1-407,Mon,234
+32,IM2063,Practical Course of Cloud Computing,1112,I1-407,Thu,678
+77,IM1050,Marketing Management,1121,l1-507,Wed,234
+78,IM1050,Marketing Management,1121,l1-507,Fri,567
+33,IM1050,Marketing Management,1121,I1-507,Thu,567
+79,IM1050,Marketing Management,1111,I1-507,Fri,567
+34,IM1050,Marketing Management,1111,I1-507,Thu,567
+80,IM1050,Marketing Management,1101,I1-507,Fri,567
+35,IM1050,Marketing Management,1101,I1-507,Thu,567
+36,IM1062,Physical Education,1121,I1-408,Wed,678
+37,IM1062,Physical Education,1111,I1-408,Wed,678
+38,IM1062,Physical Education,1101,I1-408,Wed,678
